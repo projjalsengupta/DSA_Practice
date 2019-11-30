@@ -1,4 +1,4 @@
-package Amazon.array;
+package amazon.array;
 
 import java.util.ArrayList;
 import java.util.Collections;
