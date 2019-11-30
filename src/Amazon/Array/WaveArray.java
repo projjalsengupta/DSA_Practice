@@ -12,7 +12,7 @@ public class WaveArray {
         for (int i = 0; i < n; i++) {
             A.add(scanner.nextInt());
         }
-        System.out.println(wave(A));
+        print(wave(A));
     }
 
     private static ArrayList<Integer> wave(ArrayList<Integer> A) {
