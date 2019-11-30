@@ -1,4 +1,4 @@
-package Amazon.Array;
+package Amazon.array;
 
 import java.util.*;
 
