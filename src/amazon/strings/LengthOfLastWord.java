@@ -1,6 +1,5 @@
 package amazon.strings;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class LengthOfLastWord {
