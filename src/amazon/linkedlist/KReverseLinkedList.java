@@ -2,7 +2,7 @@ package amazon.linkedlist;
 
 import java.util.Scanner;
 
-public class SwapPairs {
+public class KReverseLinkedList {
     static class ListNode {
         int val;
         ListNode next;
@@ -27,26 +27,28 @@ public class SwapPairs {
                 tail = tail.next;
             }
         }
-        print(swapPairs(head));
+        int B = scanner.nextInt();
+        print(reverseList(head, B));
     }
 
-    private static ListNode swapPairs(ListNode A) {
+    private static ListNode reverseList(ListNode A, int B) {
         if (A == null || A.next == null) {
             return A;
         }
-        ListNode head = A.next;
-        ListNode prev = null;
-        while (A != null && A.next != null) {
-            ListNode temp = A.next;
-            A.next = A.next.next;
-            temp.next = A;
-            if (prev != null) {
-                prev.next = temp;
-            }
-            prev = A;
-            A = A.next;
+        int count = B;
+        ListNode current = A;
+        ListNode previous = null;
+        ListNode next;
+        while (count-- > 0 && current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
         }
-        return head;
+        if (current != null) {
+            A.next = reverseList(current, B);
+        }
+        return previous;
     }
 
     private static void print(ListNode A) {

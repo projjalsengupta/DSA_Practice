@@ -2,7 +2,7 @@ package amazon.linkedlist;
 
 import java.util.Scanner;
 
-public class SwapPairs {
+public class Palindrome {
     static class ListNode {
         int val;
         ListNode next;
@@ -27,26 +27,49 @@ public class SwapPairs {
                 tail = tail.next;
             }
         }
-        print(swapPairs(head));
+        System.out.println(lPalin(head));
     }
 
-    private static ListNode swapPairs(ListNode A) {
-        if (A == null || A.next == null) {
-            return A;
+    private static int lPalin(ListNode A) {
+        if (A == null) {
+            return 0;
         }
-        ListNode head = A.next;
+        if (A.next == null) {
+            return 1;
+        }
+        int count = 0;
+        ListNode temp = A;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+        count = (count / 2);
+        temp = A;
         ListNode prev = null;
-        while (A != null && A.next != null) {
-            ListNode temp = A.next;
-            A.next = A.next.next;
-            temp.next = A;
-            if (prev != null) {
-                prev.next = temp;
-            }
-            prev = A;
-            A = A.next;
+        while (count-- > 0) {
+            prev = temp;
+            temp = temp.next;
         }
-        return head;
+        if (prev != null) {
+            prev.next = null;
+        }
+        ListNode B = temp;
+        temp = temp.next;
+        B.next = null;
+        while (temp != null) {
+            ListNode temp2 = temp.next;
+            temp.next = B;
+            B = temp;
+            temp = temp2;
+        }
+        while (A != null && B != null) {
+            if (A.val != B.val) {
+                return 0;
+            }
+            A = A.next;
+            B = B.next;
+        }
+        return 1;
     }
 
     private static void print(ListNode A) {
@@ -56,4 +79,5 @@ public class SwapPairs {
         }
         System.out.println();
     }
+
 }

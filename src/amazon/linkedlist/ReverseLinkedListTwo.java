@@ -2,7 +2,7 @@ package amazon.linkedlist;
 
 import java.util.Scanner;
 
-public class SwapPairs {
+public class ReverseLinkedListTwo {
     static class ListNode {
         int val;
         ListNode next;
@@ -27,26 +27,37 @@ public class SwapPairs {
                 tail = tail.next;
             }
         }
-        print(swapPairs(head));
+        int B = scanner.nextInt();
+        int C = scanner.nextInt();
+        print(reverseBetween(head, B, C));
     }
 
-    private static ListNode swapPairs(ListNode A) {
-        if (A == null || A.next == null) {
-            return A;
+    private static ListNode reverseBetween(ListNode A, int B, int C) {
+        ListNode start = A;
+        int k = C - B + 1;
+        if (B == 1) {
+            start = null;
         }
-        ListNode head = A.next;
+        while (--B > 1) {
+            start = start != null ? start.next : null;
+        }
+        ListNode head = start == null ? A : start.next;
         ListNode prev = null;
-        while (A != null && A.next != null) {
-            ListNode temp = A.next;
-            A.next = A.next.next;
-            temp.next = A;
-            if (prev != null) {
-                prev.next = temp;
-            }
-            prev = A;
-            A = A.next;
+        ListNode next = null;
+        ListNode current = head;
+        while (k-- > 0) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
         }
-        return head;
+        head.next = next;
+        if (start != null) {
+            start.next = prev;
+        } else {
+            A = prev;
+        }
+        return A;
     }
 
     private static void print(ListNode A) {
