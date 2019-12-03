@@ -19,8 +19,9 @@ public class LeastCommonAncestor {
         root.right = new TreeNode(3);
         root.left.left = new TreeNode(4);
         root.left.right = new TreeNode(5);
+        root.left.right.left = new TreeNode(6);
 
-        System.out.println(lca(root, 11, 12));
+        System.out.println(lca(root, 4, 6));
     }
 
     private static int lca(TreeNode A, int B, int C) {
