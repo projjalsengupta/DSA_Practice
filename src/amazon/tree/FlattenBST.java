@@ -1,5 +1,8 @@
 package amazon.tree;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class FlattenBST {
     static class TreeNode {
         int val;
@@ -20,23 +23,52 @@ public class FlattenBST {
         root.left.left = new TreeNode(1);
         root.left.right = new TreeNode(3);
 
-        System.out.println(isSymmetric(root));
+        System.out.println(inorder(flatten(root)));
     }
 
-    private static int isSymmetric(TreeNode A) {
-        if (A == null) {
-            return 1;
-        }
-        return isSymmetricUtil(A.left, A.right);
+    private static TreeNode flatten(TreeNode A) {
+        flattenUtil(A);
+        return A;
     }
 
-    private static int isSymmetricUtil(TreeNode A, TreeNode B) {
-        if (A == null && B == null) {
-            return 1;
+    private static void flattenUtil(TreeNode A) {
+        if (A == null || A.left == null && A.right == null) {
+            return;
         }
-        if (A != null && B != null && A.val == B.val) {
-            return isSymmetricUtil(A.left, B.right) & isSymmetricUtil(A.right, B.left);
+        if (A.left != null) {
+            flattenUtil(A.left);
+
+            TreeNode temp = A.right;
+            A.right = A.left;
+            A.left = null;
+
+            TreeNode i = A.right;
+            while (i.right != null) {
+                i = i.right;
+            }
+
+            i.right = temp;
         }
-        return 0;
+        flattenUtil(A.right);
+    }
+
+
+    private static ArrayList<Integer> inorder(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        TreeNode temp = root;
+        Stack<TreeNode> stack = new Stack<>();
+        while (temp != null || !stack.isEmpty()) {
+            while (temp != null) {
+                stack.push(temp);
+                temp = temp.left;
+            }
+            temp = stack.pop();
+            res.add(temp.val);
+            temp = temp.right;
+        }
+        return res;
     }
 }
