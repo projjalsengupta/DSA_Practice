@@ -13,7 +13,7 @@ public class PowerOfTwoIntegers {
         if (A == 1) {
             return 1;
         }
-        for (int i = 1; i <= Math.sqrt(A); i++) {
+        for (int i = 2; i <= Math.sqrt(A); i++) {
             int P = (int) (Math.log(A) / Math.log(i));
             if (Math.pow(i, P) == A) {
                 return 1;

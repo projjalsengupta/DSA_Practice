@@ -1,9 +1,10 @@
 package amazon.tree;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Stack;
 
-public class InorderPreorderPostOrder {
+public class CreateTreeFromInorderPostorder {
     static class TreeNode {
         int val;
         TreeNode left;
@@ -17,20 +18,42 @@ public class InorderPreorderPostOrder {
     }
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(5);
-        root.left = new TreeNode(3);
-        root.right = new TreeNode(6);
-        root.left.left = new TreeNode(2);
-        root.left.right = new TreeNode(4);
-        root.left.left.left = new TreeNode(1);
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Integer> A = new ArrayList<>();
+        ArrayList<Integer> B = new ArrayList<>();
+        int n = scanner.nextInt();
+        for (int i = 0; i < n; i++) {
+            A.add(scanner.nextInt());
+        }
+        for (int i = 0; i < n; i++) {
+            B.add(scanner.nextInt());
+        }
 
+        TreeNode root = buildTree(A, B);
         System.out.println("Inorder");
-        print(inorder(root));
-        System.out.println("Preorder");
-        print(preorder(root));
+        System.out.println(inorder(root));
         System.out.println("Postorder");
-        print(postorder(root));
+        System.out.println(postorder(root));
     }
+
+    private static TreeNode buildTree(ArrayList<Integer> in, ArrayList<Integer> post) {
+        postIndex = post.size() - 1;
+        return buildTree(in, post, 0, in.size() - 1);
+    }
+
+    private static TreeNode buildTree(ArrayList<Integer> in, ArrayList<Integer> post, int i, int j) {
+        if (j < i || postIndex < 0) {
+            return null;
+        }
+        TreeNode node = new TreeNode(post.get(postIndex--));
+        int index = in.indexOf(node.val);
+        node.right = buildTree(post, in, index + 1, j);
+        node.left = buildTree(post, in, i, index - 1);
+
+        return node;
+    }
+
+    private static int postIndex = 0;
 
     private static ArrayList<Integer> inorder(TreeNode root) {
         ArrayList<Integer> res = new ArrayList<>();
@@ -92,11 +115,5 @@ public class InorderPreorderPostOrder {
             }
         }
         return res;
-    }
-
-    private static void print(ArrayList<Integer> a) {
-        for (Integer i : a) {
-            System.out.println(i);
-        }
     }
 }
