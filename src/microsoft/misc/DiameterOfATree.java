@@ -1,9 +1,5 @@
 package microsoft.misc;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 public class DiameterOfATree {
     static class Node {
         int data;
