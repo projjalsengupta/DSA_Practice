@@ -1,1 +1,1 @@
-# InterviewBit Interview Questions solutions in JAVA
+# DSA practice in JAVA
